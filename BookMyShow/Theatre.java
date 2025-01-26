@@ -15,11 +15,7 @@ public class Theatre {
     public  HashMap<String, Screen> getScreen() {
         return stringScreenHashMap;
     }
-    public HashMap<String, Screen> getScreens() {
-        return stringScreenHashMap;
-    }
-
-    public Theatre(String theatreName){
+    public void setTheatre(String theatreName){
         this.theatreName=theatreName;
     }
     public  void setTheatreName(String theatreName) {
@@ -28,7 +24,6 @@ public class Theatre {
     public  String getTheatreName() {
         return theatreName;
     }
-
     public String getLocation() {
         return location;
     }

@@ -1,7 +1,5 @@
 package BookMyShow;
-
 import java.util.Scanner;
-
 public class UserAction {
     public static User userLogin(Scanner s){
         System.out.println("Enter the User name:");
@@ -12,10 +10,13 @@ public class UserAction {
             if (user.getUserId().equals(userName)&&user.getUserPin().equals(userPin)){//checks the users id and users pin
                 return user;
             } else if (user.getUserPin().equals(userName)&&!user.getUserPin().equals(userPin)) {//checks the admin id is equal and admin pin is wrong
-                return new User(null,null);//returns the null to object
+                return new User(null,null,null);//returns the null to object
             }
         }
         return null;
+    }
+    public void displayMovie(){
+
     }
     }
 

@@ -1,6 +1,9 @@
 package BookMyShow;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class BookMyShow {
@@ -8,6 +11,9 @@ public class BookMyShow {
     private static ArrayList<User> users = new ArrayList<>();//creates arraylist for users
     private static HashMap<String,Theatre> theatres = new HashMap<>();
     private static ArrayList<String> location=new ArrayList<>();
+    private static HashMap<String,ArrayList<Movies>> movies=new HashMap<>();
+    private static DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static DateTimeFormatter timeFormatter=DateTimeFormatter.ofPattern("HH:mm");
 
 //getter methods
     public static ArrayList<Admin> getAdmins() {
@@ -25,5 +31,17 @@ public class BookMyShow {
     }
     public static ArrayList<String> getLocation() {
         return location;
+    }
+
+    public static HashMap<String,ArrayList<Movies>> getMovies() {
+        return movies;
+    }
+
+    public static DateTimeFormatter getFormatter() {
+        return formatter;
+    }
+
+    public static DateTimeFormatter getTimeFormatter() {
+        return timeFormatter;
     }
 }

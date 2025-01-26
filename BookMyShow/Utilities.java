@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Utilities {
     public static HashMap<Character,ArrayList<String>> generateGrid(int seats,String grids){
-        var gridString=grids.split("\\*");//for eg.(2*3*2) is the seat grid then splits and stores it in a string array like[2,3,2]
+        String[] gridString=grids.split("\\*");//for e.g.(2*3*2) is the seat grid then splits and stores it in a string array list[2,3,2]
         int sumOfGrids=0;
         for(String individualGrids:gridString){
            sumOfGrids+=Integer.parseInt(individualGrids);
