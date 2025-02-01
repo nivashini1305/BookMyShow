@@ -10,15 +10,24 @@ public class Tickets {
     private LocalTime showTime;
     private  String movieName;
     private LocalDate showDate;
+    private long price;
     private ArrayList<String> bookedTickets;
 
-    public Tickets(String theatreName,String screenName,LocalTime showTime,String movieName,ArrayList<String> bookedTickets,LocalDate showDate){
+    public Tickets(String theatreName,String screenName,LocalTime showTime,String movieName,ArrayList<String> bookedTickets,LocalDate showDate,long price){
         this.movieName=movieName;
         this.bookedTickets=bookedTickets;
         this.showTime=showTime;
         this.screenName=screenName;
         this.theatreName=theatreName;
         this.showDate=showDate;
+        this.price=price;
+    }
+    public void setPrice(Long price){
+        this.price=price;
+    }
+
+    public long getPrice() {
+        return price;
     }
 
     public void setMovieName(String movieName) {

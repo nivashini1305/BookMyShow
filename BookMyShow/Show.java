@@ -11,14 +11,24 @@ public class Show {
     private LocalTime endTime;
     private LocalDate showDate;
     private Screen screen;
+    private long price;
     private HashMap<Character, ArrayList<String>> showSeat=new HashMap<>();
-    public Show(LocalTime startTime,LocalTime endTime,LocalDate showDate,Screen screen,HashMap<Character,ArrayList<String>> showSeat){
+    public Show(LocalTime startTime,LocalTime endTime,LocalDate showDate,Screen screen,HashMap<Character,ArrayList<String>> showSeat,Long price){
         this.startTime=startTime;
         this.endTime=endTime;
         this.showDate=showDate;
         this.screen = screen;
         this.showSeat=showSeat;
+        this.price=price;
 
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
     }
 
     public HashMap<Character, ArrayList<String>> getShowSeat    () {

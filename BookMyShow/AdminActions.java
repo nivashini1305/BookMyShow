@@ -151,6 +151,8 @@ import java.util.Scanner;
             System.out.print("Enter the Date of the movie: ");
             LocalDate dateOfTheMovie = LocalDate.parse(s.nextLine(), BookMyShow.getFormatter());
             Theatre theatre = BookMyShow.getTheatres().get(theatreNameToAddMovie);
+            System.out.print("Enter the movie price:");
+            long price=Long.parseLong(s.nextLine());
             System.out.println("Available Screens...");
             for (String screen : theatre.getScreen().keySet()) {
                 System.out.println("->"+theatre.getScreen().get(screen).getScreenName());
@@ -183,14 +185,14 @@ import java.util.Scanner;
                     }
                 }
                 var seatsInShow = Utilities.generateGrid(screenObj.getSeatNumber(),screenObj.getGrid());
-                Show show = new Show(startTime, endTime, dateOfTheMovie,screenObj,seatsInShow);
+                Show show = new Show(startTime, endTime, dateOfTheMovie,screenObj,seatsInShow,price);
                 if (screenObj.getShowHashSet().contains(show)) {
                     System.out.println("Show already exists...");
                     return;
                 }
                 screenObj.getShowHashSet().add(show);
                 ArrayList<Movies> moviesArrayList = BookMyShow.getMovies().get(movieName);
-                Movies movies = new Movies(movieName, dateOfTheMovie, durationOfMovie, location, theatre, screenObj, show);
+                Movies movies = new Movies(movieName, dateOfTheMovie, durationOfMovie, location, theatre, screenObj, show,price);
                 if (moviesArrayList == null) {
                     moviesArrayList = new ArrayList<>();
                 }

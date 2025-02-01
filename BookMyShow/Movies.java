@@ -10,7 +10,8 @@ public class Movies {
     private Theatre theatreName;
     private Screen screen;
     private Show show;
-    public Movies(String movieName, LocalDate date, long duration, String location, Theatre theatreName, Screen screen, Show show){
+    private long price;
+    public Movies(String movieName, LocalDate date, long duration, String location, Theatre theatreName, Screen screen, Show show,Long price){
         this.movieName=movieName;
         this.date=date;
         this.duration=duration;
@@ -18,7 +19,17 @@ public class Movies {
         this.location=location;
         this.screen=screen;
         this.theatreName=theatreName;
+        this.price=price;
     }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
     public void setLocation(String location) {
         this.location = location;
     }

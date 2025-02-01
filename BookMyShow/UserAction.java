@@ -93,7 +93,7 @@ public class UserAction {
                         selectedDate = date;
                     }
                 } else if (preferences.equals("exit")) {
-                    return;
+                    return;//returns to the login method
                 }
                 else{
                     System.out.println("Enter correct input..");
@@ -122,7 +122,7 @@ public class UserAction {
         for (String theatreName : theatreAndShows.keySet()) {//keySet of theatreAndShow are looped
             System.out.println("Theatre Name:" + theatreName);
             System.out.println("Available shows:");
-            for (Show show : theatreAndShows.get(theatreName)) {
+            for (Show show : theatreAndShows.get(theatreName)) {//gets the value of the theatreName from the theatreAndShows HashMap which means shows
                 System.out.println("->" + show.getStartTime());
             }
         }
@@ -131,7 +131,7 @@ public class UserAction {
         while (true) {
             System.out.print("Enter the theatre name : ");
             theatreNameToBook = s.nextLine();
-            if (!theatreAndShows.containsKey(theatreNameToBook)) {
+            if (!theatreAndShows.containsKey(theatreNameToBook)) {//checks if the hashMap doesn't contain any theatre name
                 System.out.println("Theatre not available");
                 continue;
             }
@@ -139,10 +139,10 @@ public class UserAction {
         }
         while (true) {
             System.out.print("Enter the show time:");
-            LocalTime showTimeToBook = LocalTime.parse(s.nextLine(), BookMyShow.getTimeFormatter());
+            LocalTime showTimeToBook = LocalTime.parse(s.nextLine(), BookMyShow.getTimeFormatter());//gets date as input in the dd-mm-yyyy
             for (Show show : theatreAndShows.get(theatreNameToBook)) {
-                if (show.getStartTime().equals(showTimeToBook)) {
-                    currentShow = show;
+                if (show.getStartTime().equals(showTimeToBook)) {//checks the showtime equals to show Object
+                    currentShow = show;//assigns the show object to the currentShow
                     break;
                 }
             }
@@ -152,13 +152,13 @@ public class UserAction {
             }
             break;
         }
-        Screen screen = currentShow.getScreen();
-        for (var seats : currentShow.getShowSeat().entrySet()) {
+        for (var seats : currentShow.getShowSeat().entrySet()) {//gives the key and value of currentShow's seat
             System.out.println(seats.getKey() + " " + seats.getValue());
         }
         System.out.println("Enter how many seats to book:");
         int bookingSeats = Integer.parseInt(s.nextLine());
-        HashMap<Character, ArrayList<String>> duplicateSeats = new HashMap<>();
+        long totalPrice=bookingSeats* currentShow.getPrice();//calculates the price for the total number of tickets
+        HashMap<Character, ArrayList<String>> duplicateSeats = new HashMap<>();//sets the duplicate hashMap
         for (var keyAndValue : currentShow.getShowSeat().entrySet()) {
             duplicateSeats.put(keyAndValue.getKey(), new ArrayList<>());
             duplicateSeats.get(keyAndValue.getKey()).addAll(keyAndValue.getValue());
@@ -209,12 +209,12 @@ public class UserAction {
 
         }
         while (true) {
+            System.out.println("Confirming the total price of the booked tickets:"+totalPrice);
             System.out.print("Confirm your Tickets(yes/no):");
             String confirmation = s.nextLine();
             if (confirmation.equals("yes")) {
                 currentShow.setShowSeat(duplicateSeats);
                 System.out.println("Tickets booked successfully...");
-
                 break;
             } else if (confirmation.equals("no")) {
                 return 0;
@@ -222,7 +222,7 @@ public class UserAction {
                 System.out.println("Enter correctly");
             }
         }
-        currentUser.getTickets().add(new Tickets(theatreNameToBook,currentShow.getScreen().getScreenName(),currentShow.getStartTime(), movieName,allSeatNumbers,currentShow.getShowDate()));
+        currentUser.getTickets().add(new Tickets(theatreNameToBook,currentShow.getScreen().getScreenName(),currentShow.getStartTime(), movieName,allSeatNumbers,currentShow.getShowDate(), totalPrice));
         while(true){
         System.out.println("Do you want to\n1.Continue booking\n2.View tickets\n3.Exit ");
         int option=Integer.parseInt(s.nextLine());
@@ -279,6 +279,7 @@ public class UserAction {
             System.out.println("Show Time of the movie:"+ticketObj.getShowTime());
             System.out.println("Show Date of the Movie"+ticketObj.getShowDate());
             System.out.println("Movie Name:"+ticketObj.getMovieName());
+            System.out.println("Price of the ticket:"+ticketObj.getPrice());
             return;
         }
     }
