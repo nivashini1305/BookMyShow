@@ -2,17 +2,41 @@ package BookMyShow;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Show {
     private LocalTime startTime;
     private LocalTime endTime;
     private LocalDate showDate;
-    public Show(LocalTime startTime,LocalTime endTime,LocalDate showDate){
+    private Screen screen;
+    private HashMap<Character, ArrayList<String>> showSeat=new HashMap<>();
+    public Show(LocalTime startTime,LocalTime endTime,LocalDate showDate,Screen screen,HashMap<Character,ArrayList<String>> showSeat){
         this.startTime=startTime;
         this.endTime=endTime;
         this.showDate=showDate;
+        this.screen = screen;
+        this.showSeat=showSeat;
+
     }
+
+    public HashMap<Character, ArrayList<String>> getShowSeat    () {
+        return showSeat;
+    }
+
+    public void setShowSeat(HashMap<Character, ArrayList<String>> showSeat) {
+        this.showSeat = showSeat;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public void setScreen(Screen screen) {
+        this.screen = screen;
+    }
+
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }

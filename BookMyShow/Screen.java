@@ -7,12 +7,18 @@ import java.util.HashSet;
 public class Screen {
     private String screenName;
     private int seatNumber;
+    private String grid;
     private HashMap<Character, ArrayList<String>> seats;
     private HashSet<Show> showHashSet=new HashSet<>();
-    public Screen(String screenName,int seatNumber,HashMap<Character,ArrayList<String>> seats){
+    public Screen(String screenName,int seatNumber,HashMap<Character,ArrayList<String>> seats,String grid){
         this.screenName = screenName;
         this.seatNumber=seatNumber;
+        this.grid = grid;
         this.seats=seats;
+    }
+
+    public String getGrid() {
+        return grid;
     }
 
     public HashSet<Show> getShowHashSet() {

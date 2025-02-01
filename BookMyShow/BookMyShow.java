@@ -7,13 +7,13 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class BookMyShow {
-    private static ArrayList<Admin> admins = new ArrayList<>();//creates arraylist for admin
-    private static ArrayList<User> users = new ArrayList<>();//creates arraylist for users
-    private static HashMap<String,Theatre> theatres = new HashMap<>();
-    private static ArrayList<String> location=new ArrayList<>();
-    private static HashMap<String,ArrayList<Movies>> movies=new HashMap<>();
-    private static DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static DateTimeFormatter timeFormatter=DateTimeFormatter.ofPattern("HH:mm");
+    private static ArrayList<Admin> admins = new ArrayList<>();//creates arraylist for storing admin
+    private static ArrayList<User> users = new ArrayList<>();//creates arraylist for storing users
+    private static HashMap<String,Theatre> theatres = new HashMap<>();//hashMap for theatreName and theatre objects
+    private static ArrayList<String> location=new ArrayList<>();//creates arraylist for storing location
+    private static HashMap<String,ArrayList<Movies>> movies=new HashMap<>();//hashMap for movieName and movieName objects
+    private static DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");//Date Formatter for formating date operations
+    private static DateTimeFormatter timeFormatter=DateTimeFormatter.ofPattern("HH:mm");//Time Formatter for formating time operations
 
 //getter methods
     public static ArrayList<Admin> getAdmins() {

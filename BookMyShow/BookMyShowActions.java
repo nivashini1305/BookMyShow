@@ -13,40 +13,39 @@ public class BookMyShowActions {
             switch (loginOption) {
                 case 1://if the user chooses admin login
                     Admin currentAdmin = AdminActions.adminLogin(s);//calls the  admin login method and the return value stores in the currentAdmin
-                    if (currentAdmin == null) {
+                    if (currentAdmin == null) {//if the return value is null prints as invalid credentials
                         System.out.println("Invalid credentials...Enter correctly");
                         break;
-                    } else if (currentAdmin.getAdminPin() == null) {
-                        System.out.println("Invalid pin...Enter the pin correctly");
-                        break;
-                    } else {
+                    }
+                    else {//calls the method if it returns admin object
                         System.out.println("Successfully logging in");
                         BookMyShowActions.adminOperations(s);
-                        return;
+                        break;
                     }
                 case 2://if the user chooses User login
                     User currentUser = UserAction.userLogin(s);//calls the  user login method and the return value stores in the currentUser
-                    if (currentUser == null) {
-                        System.out.println("Invalid credentials...Enter correctly");
-                        return;
-                    } else if (currentUser.getUserPin() == null) {
-                        System.out.println("Invalid pin...Enter the pin correctly");
+                    if(currentUser==null){//if user returns null then it asks yes?no to register
+                        System.out.println("User not available");
+                        System.out.println("Do you want to register\n1.Yes \n2.No");
+                        int option=Integer.parseInt(s.nextLine());
+                        switch (option){
+                            case 1:
+                                UserAction.register(s);
+                            case 2:
+                                System.out.println("Signing out");
+                                return;
+                        }
+                    } else if (currentUser.getUserPin()==null) {//if it returns null for the user pin
+                        System.out.println("Invalid credentials");
                         return;
                     } else {
-                        System.out.println("Successfully logging in");
-                        return;
+                        UserAction.displayMovie(s,currentUser);//if it returns user object then it calls display movie method
+                        break;
                     }
-                case 3://if the user chooses for register
-                    System.out.println("Enter the User name:");
-                    String userName = s.nextLine();
-                    System.out.println("Enter the User pin:");
-                    String userPin = s.nextLine();
-                    System.out.println("Enter the User Location:");
-                    String location=s.nextLine();
-                    BookMyShow.getUsers().add(new User(userName, userPin,location));
-                    System.out.println("Registered successfully");
-
-                case 4:
+                case 3://for the first time registration
+                    UserAction.register(s);//calls the register method in userActions
+                    break;
+                case 4://exits bookMyShow
                     System.out.println("Exitting...");
                     System.exit(0);
             }
@@ -59,19 +58,19 @@ public class BookMyShowActions {
             int operations = Integer.parseInt(s.nextLine());
             switch (operations) {
                 case 1:
-                    AdminActions.addLocation(s);
+                    AdminActions.addLocation(s);//calls method to add location
                     break;
                 case 2:
-                    AdminActions.addTheatre(s);
+                    AdminActions.addTheatre(s);//calls method to add theatre
                     break;
                 case 3:
-                    AdminActions.addMovies(s);
+                    AdminActions.addMovies(s);//calls method to add movies
                     break;
                 case 4:
-                    AdminActions.viewTheatre();
+                    AdminActions.viewTheatre();//calls method to view theatre
                     break;
                 case 5:
-                    AdminActions.viewMovie();
+                    AdminActions.viewMovie();//calls method to view movie
                     break;
                 case 6:
                    return;
