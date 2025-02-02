@@ -3,14 +3,14 @@ package BookMyShow;
 import java.time.LocalDate;
 
 public class Movies {
-    private String movieName;
-    private LocalDate date;
-    private long duration;
-    private String location;
-    private Theatre theatreName;
-    private Screen screen;
-    private Show show;
-    private long price;
+    private String movieName;//declares variable for movie name
+    private LocalDate date;//declares variable for date of the movie
+    private long duration;//declares variable for movie duration
+    private String location;//declares variable for location of the movie where it runs
+    private Theatre theatreName;//declares variable for theatre name of the movie
+    private Screen screen;//declares variable for screen name of the movie
+    private Show show;//declares variable for showtime of the movie
+    private long price;//declares variable for price of the movie
     public Movies(String movieName, LocalDate date, long duration, String location, Theatre theatreName, Screen screen, Show show,Long price){
         this.movieName=movieName;
         this.date=date;

@@ -1,8 +1,8 @@
 package BookMyShow;
 
 public class Admin {
-    private String adminId;
-    private String adminPin;
+    private String adminId;//variable for the admin id
+    private String adminPin;//variable for the admin pin
     public Admin(String adminId,String adminPin){
         this.adminId=adminId;
         this.adminPin=adminPin;

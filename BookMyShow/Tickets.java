@@ -5,12 +5,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Tickets {
-    private String theatreName;
-    private String screenName;
-    private LocalTime showTime;
-    private  String movieName;
-    private LocalDate showDate;
-    private long price;
+    private String theatreName;//variable for theatreName
+    private String screenName;//variable for screenName
+    private LocalTime showTime;//variable for showTime
+    private  String movieName;//variable for movieName
+    private LocalDate showDate;//variable for showDate
+    private long price;//variable for ticket's price
     private ArrayList<String> bookedTickets;
 
     public Tickets(String theatreName,String screenName,LocalTime showTime,String movieName,ArrayList<String> bookedTickets,LocalDate showDate,long price){

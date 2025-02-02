@@ -24,12 +24,12 @@ public class UserAction {
 
     public static void register(Scanner s) {//method for the user register to book tickets
         System.out.print("Enter the User name:");
-        String userNameToRegister = s.nextLine();
+        String userNameToRegister = s.nextLine();//gets the user id to register
         System.out.print("Enter the User pin:");
-        String userPinToRegister = s.nextLine();
+        String userPinToRegister = s.nextLine();//gets the user pin to register
         System.out.print("Enter the User Location:");
-        String location = s.nextLine();
-        BookMyShow.getUsers().add(new User(userNameToRegister, userPinToRegister, location));//adds the user name,pin and location to the arrayList
+        String location = s.nextLine();//gets the user location
+        BookMyShow.getUsers().add(new User(userNameToRegister, userPinToRegister, location));//adds the username,pin and location to the arrayList
         System.out.println("Registered successfully");
 
     }
@@ -64,7 +64,7 @@ public class UserAction {
                 if (preference.equals("yes")) {
                     LocalDate date = UserAction.preferences(currentUser,currentDate);//calls the preferences methods
                     if (date != null) {
-                        selectedDate = date;
+                        selectedDate = date;//returned is assigned to the selected date
                     }
                 } else if (preference.equals("no")) {
                     return;//if no,returns to the method call
@@ -73,10 +73,10 @@ public class UserAction {
             }
             if (check) {
                 System.out.print("Do you want to Book (type 'book') or need to change the Preferences of Location or Date(type 'change') or Exit(type 'exit'):");// if the movies were available asks the user to book the tickets or to change the preferences or to exit
-                String preferences = s.nextLine();
+                String preferences = s.nextLine();//gets the choice to book or change preferences
                 if (preferences.equals("book")) {
                     System.out.print("Enter the movie:");
-                    String selectMovie = s.nextLine();
+                    String selectMovie = s.nextLine();//enters the movie name
                     ArrayList<Movies> movieObjects = new ArrayList<>();//stores the movie Objects in a arrayList
                     for (Movies movies : BookMyShow.getMovies().get(selectMovie)) {// each objects of the selected movie  are stored in movies
                         if (movies.getLocation().equals(currentUser.getLocation()) && movies.getDate().isEqual(currentDate)) {//checks the movie location and date is equal to the users location amd the currentDate
@@ -85,12 +85,12 @@ public class UserAction {
                     }
                     int returnedValue=UserAction.AvailableTheatresAndBookTickets(movieObjects,currentUser);//after checking,method calls to book the ticket
                     if(returnedValue==1){
-                        return;
+                        return;//if the method returns 1,it directly exits to the login method
                     }
                 } else if (preferences.equals("change")) {
                     LocalDate date = UserAction.preferences(currentUser,currentDate);//if the option chooses to change the preferences...it calls the preferences method
                     if (date != null) {
-                        selectedDate = date;
+                        selectedDate = date;//returned is assigned to the selected date
                     }
                 } else if (preferences.equals("exit")) {
                     return;//returns to the login method
@@ -107,12 +107,12 @@ public class UserAction {
 
         HashMap<String, HashSet<Show>> theatreAndShows = new HashMap<>();//local hashMap which sets theatre name as key and hashset of shows as value
         String movieName=null;
-        for (Movies movieObj : movies) {
+        for (Movies movieObj : movies) {//loop over each movie object
             if (theatreAndShows.containsKey(movieObj.getTheatre().getTheatreName())) {//here the containsKey method checks the movie's theatre object is in the hashMap
                 theatreAndShows.get(movieObj.getTheatre().getTheatreName()).add(movieObj.getShow());//adds the show of the movie
                 movieName=movieObj.getMovieName();//assigns movie name
             } else {
-                HashSet<Show> shows = new HashSet<>();
+                HashSet<Show> shows = new HashSet<>();//creates a new hashset
                 shows.add(movieObj.getShow());//adds the show object
                 theatreAndShows.put(movieObj.getTheatre().getTheatreName(), shows);//adds theatre name and show object
                 movieName=movieObj.getMovieName();//assigns the movie name to the movieName variable
@@ -120,7 +120,7 @@ public class UserAction {
         }
         System.out.println("Available theatres: ");
         for (String theatreName : theatreAndShows.keySet()) {//keySet of theatreAndShow are looped
-            System.out.println("Theatre Name:" + theatreName);
+            System.out.println("Theatre Name:" + theatreName);//displays theatre name
             System.out.println("Available shows:");
             for (Show show : theatreAndShows.get(theatreName)) {//gets the value of the theatreName from the theatreAndShows HashMap which means shows
                 System.out.println("->" + show.getStartTime());
@@ -130,7 +130,7 @@ public class UserAction {
         String theatreNameToBook = null;
         while (true) {
             System.out.print("Enter the theatre name : ");
-            theatreNameToBook = s.nextLine();
+            theatreNameToBook = s.nextLine();//gets theatre name
             if (!theatreAndShows.containsKey(theatreNameToBook)) {//checks if the hashMap doesn't contain any theatre name
                 System.out.println("Theatre not available");
                 continue;
@@ -140,20 +140,20 @@ public class UserAction {
         while (true) {
             System.out.print("Enter the show time:");
             LocalTime showTimeToBook = LocalTime.parse(s.nextLine(), BookMyShow.getTimeFormatter());//gets date as input in the dd-mm-yyyy
-            for (Show show : theatreAndShows.get(theatreNameToBook)) {
+            for (Show show : theatreAndShows.get(theatreNameToBook)) {//loops over the objects of theatre name
                 if (show.getStartTime().equals(showTimeToBook)) {//checks the showtime equals to show Object
                     currentShow = show;//assigns the show object to the currentShow
                     break;
                 }
             }
             if (currentShow == null) {
-                System.out.println("Show Time is unavailable to book...Please enter another show time");
+                System.out.println("Show Time is unavailable to book...Please enter another show time");//if the currentShow is null then prints this
                 continue;
             }
             break;
         }
         for (var seats : currentShow.getShowSeat().entrySet()) {//gives the key and value of currentShow's seat
-            System.out.println(seats.getKey() + " " + seats.getValue());
+            System.out.println(seats.getKey() + " " + seats.getValue());//prints both key and value
         }
         System.out.println("Enter how many seats to book:");
         int bookingSeats = Integer.parseInt(s.nextLine());
@@ -174,50 +174,50 @@ public class UserAction {
                 String grid = currentShow.getScreen().getGrid();//currentShow's grid
                 String[] gridString = grid.split("\\*");//splitting the grid using regex
                 int sumOfGrids = 0;
-                for (String eachGrid : gridString) {
+                for (String eachGrid : gridString) {//loops over each array element
                     sumOfGrids += Integer.parseInt(eachGrid);//adding total number of seats in a row
                 }
                 int totalElement = (sumOfGrids + 2 - Integer.parseInt(gridString[2])) - 1;//calculates the seat number as per index
                 if (seatNo <= Integer.parseInt(gridString[0])) {//Books the seat as per the first grid
-                    if (bookingSeat.get(seatNo - 1).equals("X")) {
+                    if (bookingSeat.get(seatNo - 1).equals("X")) {//checks if the seats are already booked
                         System.out.println("Seat Already booked...Enter another seat number to book");
                         continue;
                     }
-                    bookingSeat.set(seatNo - 1, "X");
+                    bookingSeat.set(seatNo - 1, "X");//sets the booked seat as X
                     System.out.println(rowName + " " + bookingSeat);
-                    allSeatNumbers.add(seatsToBook);
+                    allSeatNumbers.add(seatsToBook);//adds the total no.of seats to the arraylist
 
                 } else if (seatNo >= totalElement) {//Books the seat as per the second grid
-                    if (bookingSeat.get(seatNo + 1).equals("X")) {
+                    if (bookingSeat.get(seatNo + 1).equals("X")) {//checks already the seats are booked
                         System.out.println("Seat Already booked...Enter another seat number to book");
                         continue;
                     }
-                    bookingSeat.set(seatNo + 1, "X");
+                    bookingSeat.set(seatNo + 1, "X");//sets the booked seat as X
                     System.out.println(rowName + " " + bookingSeat);
-                    allSeatNumbers.add(seatsToBook);
+                    allSeatNumbers.add(seatsToBook);//adds the total no.of seats to the arraylist
                 } else {//Books the seat as per the third grid
-                    if (bookingSeat.get(seatNo).equals("X")) {
+                    if (bookingSeat.get(seatNo).equals("X")) {//checks already the seats are booked
                         System.out.println("Seat Already booked...Enter another seat number to book");
                         continue;
                     }
-                    bookingSeat.set(seatNo, "X");
+                    bookingSeat.set(seatNo, "X");//sets the booked seat as X
                     System.out.println(rowName + " " + bookingSeat);
-                    allSeatNumbers.add(seatsToBook);
+                    allSeatNumbers.add(seatsToBook);//adds the total no.of seats to the arraylist
                 }
                 break;
             }
 
         }
         while (true) {//loop to confirm the tickets
-            System.out.println("Confirming the total price of the booked tickets:"+totalPrice);
-            System.out.print("Confirm your Tickets(yes/no):");
+            System.out.println("Confirming the total price of the booked tickets:"+totalPrice);//prints the total price of the ticket to confirm
+            System.out.print("Confirm your Tickets(yes/no):");//asks to confirm the ticket
             String confirmation = s.nextLine();
             if (confirmation.equals("yes")) {
                 currentShow.setShowSeat(duplicateSeats);//sets the duplicate seat booking to the currentShow
                 System.out.println("Tickets booked successfully...");
                 break;
             } else if (confirmation.equals("no")) {
-                return 0;
+                return 0;//returns 0 if no
             } else {
                 System.out.println("Enter correctly");
             }
@@ -228,19 +228,19 @@ public class UserAction {
         int option=Integer.parseInt(s.nextLine());
         switch (option) {
             case 1:
-                return 0;
+                return 0;//returns to continue booking
             case 2:
                 UserAction.viewTickets(currentUser);//calls the view Ticket method
                 continue;
             case 3:
-                return 1;
+                return 1;//directly returns to the login method
         }
         }
     }
     private static LocalDate preferences(User currentUser,LocalDate currentDate){
         Scanner s=new Scanner(System.in);
         System.out.println("Do you want to \n1.Change the location \n2.Change the date\n3.Exit");
-        int chooseOption = Integer.parseInt(s.nextLine());
+        int chooseOption = Integer.parseInt(s.nextLine());//gets the option to change
         switch (chooseOption) {
             case 1:
                 System.out.println("Enter the Location to book movie:");
@@ -261,7 +261,7 @@ public class UserAction {
                     break;
                 }
 
-                System.out.println("The changed date to book:" + changeDate.format(BookMyShow.getFormatter()));
+                System.out.println("The changed date to book:" + changeDate.format(BookMyShow.getFormatter()));//prints the changed date from user
                 return changeDate;//returns the changed date
             case 3:
                 System.out.println("Exiting");
@@ -272,7 +272,7 @@ public class UserAction {
     public static void viewTickets(User currentUser){
         ArrayList<Tickets> tickets=currentUser.getTickets();//ticket objects are stored in the variable ticket
         System.out.println("Booked details of the user "+currentUser.getUserId());
-        for(Tickets ticketObj:tickets){//loops all the ticket object
+        for(Tickets ticketObj:tickets){//loops all the ticket object and displays the details of the booked ticket
             System.out.println("Theatre Name:"+ticketObj.getTheatreName());
             System.out.println("Tickets Name:"+ticketObj.getBookedTickets());
             System.out.println("Screen Name:"+ticketObj.getScreenName());

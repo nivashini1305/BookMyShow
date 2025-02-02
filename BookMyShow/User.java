@@ -3,9 +3,9 @@ package BookMyShow;
 import java.util.ArrayList;
 
 public class User {
-    private String userId;
-    private String userPin;
-    private String location;
+    private String userId;//variable for the user id
+    private String userPin;//variable for the user pin
+    private String location;//variable for the user location
     ArrayList<Tickets> tickets=new ArrayList<>();//Array list to store all the user tickets
     public User(String userId,String userPin,String location){
         this.userId=userId;

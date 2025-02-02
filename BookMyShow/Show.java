@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class Show {
-    private LocalTime startTime;
-    private LocalTime endTime;
-    private LocalDate showDate;
-    private Screen screen;
-    private long price;
+    private LocalTime startTime;//declares the variable for show's start time
+    private LocalTime endTime;//declares the variable for show's end time
+    private LocalDate showDate;//declares the variable for show's date
+    private Screen screen;//declares the variable for show's screen
+    private long price;//declares the variable for price
     private HashMap<Character, ArrayList<String>> showSeat=new HashMap<>();//hashmap to store the currentShow's seats
     public Show(LocalTime startTime,LocalTime endTime,LocalDate showDate,Screen screen,HashMap<Character,ArrayList<String>> showSeat,Long price){
         this.startTime=startTime;
