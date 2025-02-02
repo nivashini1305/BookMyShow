@@ -159,26 +159,26 @@ public class UserAction {
         int bookingSeats = Integer.parseInt(s.nextLine());
         long totalPrice=bookingSeats* currentShow.getPrice();//calculates the price for the total number of tickets
         HashMap<Character, ArrayList<String>> duplicateSeats = new HashMap<>();//sets the duplicate hashMap
-        for (var keyAndValue : currentShow.getShowSeat().entrySet()) {
-            duplicateSeats.put(keyAndValue.getKey(), new ArrayList<>());
-            duplicateSeats.get(keyAndValue.getKey()).addAll(keyAndValue.getValue());
+        for (var keyAndValue : currentShow.getShowSeat().entrySet()) {//loop over a hashMap which takes both key and value
+            duplicateSeats.put(keyAndValue.getKey(), new ArrayList<>());//adds the key and value to the hashmap
+            duplicateSeats.get(keyAndValue.getKey()).addAll(keyAndValue.getValue());//adds the value to the arrayList of the hashmap
         }
-        ArrayList<String> allSeatNumbers = new ArrayList<>();
-        for (int i = 0; i < bookingSeats; i++) {
+        ArrayList<String> allSeatNumbers = new ArrayList<>();//local hashMap foe booking seats
+        for (int i = 0; i < bookingSeats; i++) {//loop to book the no.of seats
             while (true) {
                 System.out.println("Enter the seat number to book(e.g. A1,A2,...)");
                 String seatsToBook = s.nextLine();
-                char rowName = seatsToBook.charAt(0);
-                int seatNo = Integer.parseInt(seatsToBook.substring(1));
-                ArrayList<String> bookingSeat = duplicateSeats.get(rowName);
-                String grid = currentShow.getScreen().getGrid();
-                String[] gridString = grid.split("\\*");
+                char rowName = seatsToBook.charAt(0);//seat numbers are given like A1,A2,...,B1,B2,...  This line takes the character at the first index
+                int seatNo = Integer.parseInt(seatsToBook.substring(1));//takes the remaining substring of the seatNumber e.g. if the seat number A10,it takes the integer 10
+                ArrayList<String> bookingSeat = duplicateSeats.get(rowName);//it gives the value of the key which means the arrayList of string
+                String grid = currentShow.getScreen().getGrid();//currentShow's grid
+                String[] gridString = grid.split("\\*");//splitting the grid using regex
                 int sumOfGrids = 0;
                 for (String eachGrid : gridString) {
-                    sumOfGrids += Integer.parseInt(eachGrid);
+                    sumOfGrids += Integer.parseInt(eachGrid);//adding total number of seats in a row
                 }
-                int totalElement = (sumOfGrids + 2 - Integer.parseInt(gridString[2])) - 1;
-                if (seatNo <= Integer.parseInt(gridString[0])) {
+                int totalElement = (sumOfGrids + 2 - Integer.parseInt(gridString[2])) - 1;//calculates the seat number as per index
+                if (seatNo <= Integer.parseInt(gridString[0])) {//Books the seat as per the first grid
                     if (bookingSeat.get(seatNo - 1).equals("X")) {
                         System.out.println("Seat Already booked...Enter another seat number to book");
                         continue;
@@ -187,7 +187,7 @@ public class UserAction {
                     System.out.println(rowName + " " + bookingSeat);
                     allSeatNumbers.add(seatsToBook);
 
-                } else if (seatNo >= totalElement) {
+                } else if (seatNo >= totalElement) {//Books the seat as per the second grid
                     if (bookingSeat.get(seatNo + 1).equals("X")) {
                         System.out.println("Seat Already booked...Enter another seat number to book");
                         continue;
@@ -195,7 +195,7 @@ public class UserAction {
                     bookingSeat.set(seatNo + 1, "X");
                     System.out.println(rowName + " " + bookingSeat);
                     allSeatNumbers.add(seatsToBook);
-                } else {
+                } else {//Books the seat as per the third grid
                     if (bookingSeat.get(seatNo).equals("X")) {
                         System.out.println("Seat Already booked...Enter another seat number to book");
                         continue;
@@ -208,12 +208,12 @@ public class UserAction {
             }
 
         }
-        while (true) {
+        while (true) {//loop to confirm the tickets
             System.out.println("Confirming the total price of the booked tickets:"+totalPrice);
             System.out.print("Confirm your Tickets(yes/no):");
             String confirmation = s.nextLine();
             if (confirmation.equals("yes")) {
-                currentShow.setShowSeat(duplicateSeats);
+                currentShow.setShowSeat(duplicateSeats);//sets the duplicate seat booking to the currentShow
                 System.out.println("Tickets booked successfully...");
                 break;
             } else if (confirmation.equals("no")) {
@@ -222,7 +222,7 @@ public class UserAction {
                 System.out.println("Enter correctly");
             }
         }
-        currentUser.getTickets().add(new Tickets(theatreNameToBook,currentShow.getScreen().getScreenName(),currentShow.getStartTime(), movieName,allSeatNumbers,currentShow.getShowDate(), totalPrice));
+        currentUser.getTickets().add(new Tickets(theatreNameToBook,currentShow.getScreen().getScreenName(),currentShow.getStartTime(), movieName,allSeatNumbers,currentShow.getShowDate(), totalPrice));//all the objects added to the ticket
         while(true){
         System.out.println("Do you want to\n1.Continue booking\n2.View tickets\n3.Exit ");
         int option=Integer.parseInt(s.nextLine());
@@ -230,7 +230,7 @@ public class UserAction {
             case 1:
                 return 0;
             case 2:
-                UserAction.viewTickets(currentUser);
+                UserAction.viewTickets(currentUser);//calls the view Ticket method
                 continue;
             case 3:
                 return 1;
@@ -245,24 +245,24 @@ public class UserAction {
             case 1:
                 System.out.println("Enter the Location to book movie:");
                 String changeLocation = s.nextLine();
-                currentUser.setLocation(changeLocation);
+                currentUser.setLocation(changeLocation);//sets the new location
                 return null;
             case 2:
                 LocalDate changeDate = null;
                 while (true)
                 {
                     System.out.println("Enter the Date to book the ticket:");
-                    changeDate = LocalDate.parse(s.nextLine(), BookMyShow.getFormatter());
-                    if(changeDate.isBefore(currentDate))
+                    changeDate = LocalDate.parse(s.nextLine(), BookMyShow.getFormatter());//gets date as input
+                    if(changeDate.isBefore(currentDate))//checks the change date is before the currentDate
                     {
-                        System.out.println("Enter upcoming dates..");
+                        System.out.println("Enter upcoming dates..");//prints as enter the upcoming dates
                         continue;
                     }
                     break;
                 }
 
                 System.out.println("The changed date to book:" + changeDate.format(BookMyShow.getFormatter()));
-                return changeDate;
+                return changeDate;//returns the changed date
             case 3:
                 System.out.println("Exiting");
                 return null;
@@ -270,14 +270,14 @@ public class UserAction {
         return null;
     }
     public static void viewTickets(User currentUser){
-        ArrayList<Tickets> tickets=currentUser.getTickets();
+        ArrayList<Tickets> tickets=currentUser.getTickets();//ticket objects are stored in the variable ticket
         System.out.println("Booked details of the user "+currentUser.getUserId());
-        for(Tickets ticketObj:tickets){
+        for(Tickets ticketObj:tickets){//loops all the ticket object
             System.out.println("Theatre Name:"+ticketObj.getTheatreName());
             System.out.println("Tickets Name:"+ticketObj.getBookedTickets());
             System.out.println("Screen Name:"+ticketObj.getScreenName());
             System.out.println("Show Time of the movie:"+ticketObj.getShowTime());
-            System.out.println("Show Date of the Movie"+ticketObj.getShowDate());
+            System.out.println("Show Date of the Movie:"+ticketObj.getShowDate().format(BookMyShow.getFormatter()));
             System.out.println("Movie Name:"+ticketObj.getMovieName());
             System.out.println("Price of the ticket:"+ticketObj.getPrice());
             return;

@@ -9,7 +9,7 @@ public class Screen {
     private int seatNumber;
     private String grid;
     private HashMap<Character, ArrayList<String>> seats;
-    private HashSet<Show> showHashSet=new HashSet<>();
+    private HashSet<Show> showHashSet=new HashSet<>();// to store shows running in the screen
     public Screen(String screenName,int seatNumber,HashMap<Character,ArrayList<String>> seats,String grid){
         this.screenName = screenName;
         this.seatNumber=seatNumber;

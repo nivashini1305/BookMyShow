@@ -24,13 +24,14 @@ public class BookMyShowActions {
                     }
                 case 2://if the user chooses User login
                     User currentUser = UserAction.userLogin(s);//calls the  user login method and the return value stores in the currentUser
-                    if(currentUser==null){//if user returns null then it asks yes?no to register
+                    if(currentUser==null){//if user returns null then it asks yes/no to register
                         System.out.println("User not available");
                         System.out.println("Do you want to register\n1.Yes \n2.No");
                         int option=Integer.parseInt(s.nextLine());
                         switch (option){
                             case 1:
                                 UserAction.register(s);
+                                break;
                             case 2:
                                 System.out.println("Signing out");
                                 return;

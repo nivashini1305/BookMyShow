@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Theatre {
     private String theatreName;
     private String location;
-    private HashMap<String,Screen> stringScreenHashMap = new HashMap<>();
+    private HashMap<String,Screen> stringScreenHashMap = new HashMap<>();//hashmap to store the screen name and its object
     public Theatre(String theatreName,String location,HashMap<String,Screen> screens){
         this.theatreName=theatreName;
         this.location=location;

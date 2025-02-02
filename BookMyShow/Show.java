@@ -12,7 +12,7 @@ public class Show {
     private LocalDate showDate;
     private Screen screen;
     private long price;
-    private HashMap<Character, ArrayList<String>> showSeat=new HashMap<>();
+    private HashMap<Character, ArrayList<String>> showSeat=new HashMap<>();//hashmap to store the currentShow's seats
     public Show(LocalTime startTime,LocalTime endTime,LocalDate showDate,Screen screen,HashMap<Character,ArrayList<String>> showSeat,Long price){
         this.startTime=startTime;
         this.endTime=endTime;
