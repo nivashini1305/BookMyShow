@@ -1,5 +1,4 @@
 
-https://github.com/user-attachments/assets/fdbc059d-d4c8-47bc-aec4-ff2fb1f2f671
 # Book My Show 
 
 A comprehensive Java-based console application that simulates a movie ticket booking system. This project allows admins to manage theatres, screens, and movie schedules, while users can register, book tickets, and manage their preferences.
