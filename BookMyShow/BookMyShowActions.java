@@ -12,7 +12,7 @@ public class BookMyShowActions {
             int loginOption = Integer.parseInt(s.nextLine());
             switch (loginOption) {
                 case 1://if the user chooses admin login
-                    Admin currentAdmin = AdminActions.adminLogin(s);//calls the  admin login method and the return value stores in the currentAdmin
+                    Admin currentAdmin = AdminActions.adminLogin();//calls the  admin login method and the return value stores in the currentAdmin
                     if (currentAdmin == null) {//if the return value is null prints as invalid credentials
                         System.out.println("Invalid credentials...Enter correctly");
                         break;
@@ -43,6 +43,7 @@ public class BookMyShowActions {
                         UserAction.displayMovie(s,currentUser);//if it returns user object then it calls display movie method
                         break;
                     }
+                    break;
                 case 3://for the first time registration
                     UserAction.register(s);//calls the register method in userActions
                     break;
@@ -59,10 +60,10 @@ public class BookMyShowActions {
             int operations = Integer.parseInt(s.nextLine());
             switch (operations) {
                 case 1:
-                    AdminActions.addLocation(s);//calls method to add location
+                    AdminActions.addLocation();//calls method to add location
                     break;
                 case 2:
-                    AdminActions.addTheatre(s);//calls method to add theatre
+                    AdminActions.addTheatre();//calls method to add theatre
                     break;
                 case 3:
                     AdminActions.addMovies(s);//calls method to add movies

@@ -280,7 +280,6 @@ public class UserAction {
             System.out.println("Show Date of the Movie:"+ticketObj.getShowDate().format(BookMyShow.getFormatter()));
             System.out.println("Movie Name:"+ticketObj.getMovieName());
             System.out.println("Price of the ticket:"+ticketObj.getPrice());
-            return;
         }
     }
 }

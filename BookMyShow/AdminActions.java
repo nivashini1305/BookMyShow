@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Scanner;
     public class AdminActions {
         //login method for admin
-        public static Admin adminLogin(Scanner s) {
+        public static Admin adminLogin() {
+            Scanner s=new Scanner(System.in);
             System.out.print("Enter the admin name:");
             String adminName = s.nextLine();//Enters the admin name
             System.out.print("Enter the admin pin:");
@@ -22,9 +23,11 @@ import java.util.Scanner;
             return null;
         }
 
-        public static void addLocation(Scanner s) {
-            System.out.print("Add the location:");
+        public static void addLocation() {
+            Scanner s=new Scanner(System.in);
+            System.out.println("Add the location:");
             String locationName = s.nextLine();
+            System.out.println("Location added Successfully");
 
             if (BookMyShow.getLocation().contains(locationName)) {//checks already the location is available
                 System.out.println("Location already exists...");
@@ -32,19 +35,19 @@ import java.util.Scanner;
             }
             BookMyShow.getLocation().add(locationName);//if not adds the location
         }
-        public static void addTheatre(Scanner s) {
-
+        public static void addTheatre() {
+            Scanner s=new Scanner(System.in);
             System.out.println("The available locations are:");
             for(String location:BookMyShow.getLocation()){//loops all the location to print
                 System.out.println("->"+location);
             }
             String location = null;
             while (true) {
-                System.out.print("Enter the Location to add theatre:");
+                System.out.println("Enter the Location to add theatre:");
                 location = s.nextLine();//gets input to add the location
 
                 if (!BookMyShow.getLocation().contains(location)) {//check for the location is not available
-                    System.out.print("Location not found");
+                    System.out.println("Location not found");
                     continue;
                 }
                 break;
@@ -209,21 +212,29 @@ import java.util.Scanner;
         public static void viewMovie(){
             var keysInMovies=BookMyShow.getMovies().keySet();//gets all the keys of the movies hashmap
             System.out.println("Available movies..");
-            for(String movieKeys:keysInMovies){//loops to print all the moviesName
-                System.out.println("The Movie:"+movieKeys);
-                ArrayList<Movies> movies=BookMyShow.getMovies().get(movieKeys);//stores the value of the movie hashmap
-                for(var movieObj:movies){//takes each from the arraylist
-                    System.out.println("The location of the movie:"+movieObj.getLocation());//prints the location of the movie
-                    System.out.println("The Duration of the movie:"+movieObj.getDuration()+" mins");//prints the duration of the movie
-                    System.out.println("The Date of the the movie:"+movieObj.getDate());//prints the date of the movie
-                    System.out.println("The Start time of the movie:"+movieObj.getShow().getStartTime());//prints the start time of the movie
-                    System.out.println("The End time of the movie:"+movieObj.getShow().getEndTime());//prints the end time of the movie
-                    System.out.println("The Theatre Name:"+movieObj.getTheatre().getTheatreName());//prints the theatre name of the movie
-                    System.out.println("The Screen Name:"+movieObj.getScreen().getScreenName());//prints the screen name of the movie
-                    System.out.println();
-                    System.out.println("----------------------------------------------");
-
+            boolean check =false;
+            if(!check){
+                for(String movieKeys:keysInMovies){//loops to print all the moviesName
+                    System.out.println("The Movie:"+movieKeys);
+                    ArrayList<Movies> movies=BookMyShow.getMovies().get(movieKeys);//stores the value of the movie hashmap
+                    for(var movieObj:movies){//takes each from the arraylist
+                        System.out.println("The location of the movie:"+movieObj.getLocation());//prints the location of the movie
+                        System.out.println("The Duration of the movie:"+movieObj.getDuration()+" mins");//prints the duration of the movie
+                        System.out.println("The Date of the the movie:"+movieObj.getDate());//prints the date of the movie
+                        System.out.println("The Start time of the movie:"+movieObj.getShow().getStartTime());//prints the start time of the movie
+                        System.out.println("The End time of the movie:"+movieObj.getShow().getEndTime());//prints the end time of the movie
+                        System.out.println("The Theatre Name:"+movieObj.getTheatre().getTheatreName());//prints the theatre name of the movie
+                        System.out.println("The Screen Name:"+movieObj.getScreen().getScreenName());//prints the screen name of the movie
+                        System.out.println();
+                        System.out.println("----------------------------------------------");
+                        check=true;
+                    }
                 }
             }
+            if(!check){
+                System.out.println("No movies found");
+            }
+
+
         }
     }
