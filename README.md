@@ -11,7 +11,7 @@ A comprehensive Java-based console application that simulates a movie ticket boo
 
 ## Output Preview
 
-https://github.com/user-attachments/assets/307c952c-5739-4170-9cf0-a92723f6f67f
+https://github.com/user-attachments/assets/56212d8e-51ef-48c2-a7dd-de1126b5df30
 
 ## Features
 
