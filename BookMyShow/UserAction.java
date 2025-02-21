@@ -37,7 +37,7 @@ public class UserAction {
     public static void displayMovie(Scanner s, User currentUser) {
         LocalDate currentDate = LocalDate.now();//displays the current date
         LocalDate selectedDate = currentDate;//the currentDate will be the selected date firstly for the booking tickets
-        label:
+
         while (true) {
             System.out.println("Current Date:" + currentDate.format(BookMyShow.getFormatter()));//prints the current date with given format of the date
             System.out.println("Selected date:" + selectedDate.format(BookMyShow.getFormatter()));//prints the selected date with given format of the date
@@ -46,15 +46,12 @@ public class UserAction {
             boolean check = false;
             System.out.println("Available movies...");
             for (String movieName : movie) {//takes each movieObj from the keySet
-                boolean check2 = false;
                 for (var movies : BookMyShow.getMovies().get(movieName)) {//gets the movie object by passing the key
                     if (movies.getLocation().equals(currentUser.getLocation()) && movies.getDate().isEqual(selectedDate)) {//checks the user location and the location of the movie and also the date
                         check = true;
-                        check2 = true;
+                        System.out.println("->" + movieName);//prints the movie
+                        break;
                     }
-                }
-                if (check2) {
-                    System.out.println("->" + movieName);//prints the movie
                 }
             }
             if (!check) {//if no movies was found then the check becomes null
@@ -83,7 +80,7 @@ public class UserAction {
                             movieObjects.add(movies);//movie objects are added to the arrayList
                         }
                     }
-                    int returnedValue=UserAction.AvailableTheatresAndBookTickets(movieObjects,currentUser);//after checking,method calls to book the ticket
+                    int returnedValue=UserAction.availableTheatresAndBookTickets(movieObjects,currentUser);//after checking,method calls to book the ticket
                     if(returnedValue==1){
                         return;//if the method returns 1,it directly exits to the login method
                     }
@@ -102,7 +99,7 @@ public class UserAction {
         }
     }
 
-    public static int AvailableTheatresAndBookTickets(ArrayList<Movies> movies,User currentUser) {
+    public static int availableTheatresAndBookTickets(ArrayList<Movies> movies,User currentUser) {
         Scanner s = new Scanner(System.in);
 
         HashMap<String, HashSet<Show>> theatreAndShows = new HashMap<>();//local hashMap which sets theatre name as key and hashset of shows as value
