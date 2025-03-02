@@ -7,8 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class BookMyShow {
-    private static ArrayList<Admin> admins = new ArrayList<>();//creates arraylist for storing admin
-    private static ArrayList<User> users = new ArrayList<>();//creates arraylist for storing users
+   private static  ArrayList<Account> accounts = new ArrayList<>();
     private static HashMap<String,Theatre> theatres = new HashMap<>();//hashMap for theatreName and theatre objects
     private static ArrayList<String> location=new ArrayList<>();//creates arraylist for storing location
     private static HashMap<String,ArrayList<Movies>> movies=new HashMap<>();//hashMap for movieName and movieName objects
@@ -16,12 +15,15 @@ public class BookMyShow {
     private static DateTimeFormatter timeFormatter=DateTimeFormatter.ofPattern("HH:mm");//Time Formatter for formating time operations
 
 //getter methods
-    public static ArrayList<Admin> getAdmins() {
-        return admins;
+
+    public static void setAccounts(ArrayList<Account> accounts) {
+        BookMyShow.accounts = accounts;
     }
-    public static ArrayList<User> getUsers() {
-        return users;
+
+    public static ArrayList<Account> getAccounts() {
+        return accounts;
     }
+
     public static HashMap<String,Theatre> getTheatres(){
         return theatres;
     }

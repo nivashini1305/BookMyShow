@@ -1,40 +1,46 @@
 package BookMyShow;
-import javax.swing.*;
+import BookMyShow.Interfaces.UserActionsInterface;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
-public class UserAction {
-    public static User userLogin(Scanner s) {
+public class UserAction  implements UserActionsInterface {
+    public  Account login() {
+        Scanner s = new Scanner(System.in);
         System.out.print("Enter the User name:");
         String userName = s.nextLine();//Enters the users name
         System.out.print("Enter the User pin:");
         String userPin = s.nextLine();//Enters the users pin
-        for (User user : BookMyShow.getUsers()) {
-            if (user.getUserId().equals(userName) && user.getUserPin().equals(userPin)) {//checks the users id and users pin
-                return user;
-            } else if (user.getUserId().equals(userName) && !user.getUserPin().equals(userPin)) {//checks the admin id is equal and admin pin is wrong
-                return new User(null, null, null);
+        for (Account user : BookMyShow.getAccounts()) {
+            if(user instanceof User){
+                if (user.getName().equals(userName) && user.getPin().equals(userPin)) {//checks the users id and users pin
+                    return user;
+                } else if (user.getName().equals(userName) && !user.getPin().equals(userPin)) {//checks the admin id is equal and admin pin is wrong
+                    return new User(null, null, null);
+                }
             }
         }
         return null;
     }
 
-    public static void register(Scanner s) {//method for the user register to book tickets
+    public  void register() {//method for the user register to book tickets
+        Scanner s=new Scanner(System.in);
         System.out.print("Enter the User name:");
         String userNameToRegister = s.nextLine();//gets the user id to register
         System.out.print("Enter the User pin:");
         String userPinToRegister = s.nextLine();//gets the user pin to register
         System.out.print("Enter the User Location:");
         String location = s.nextLine();//gets the user location
-        BookMyShow.getUsers().add(new User(userNameToRegister, userPinToRegister, location));//adds the username,pin and location to the arrayList
+        BookMyShow.getAccounts().add(new User(userNameToRegister, userPinToRegister, location));//adds the username,pin and location to the arrayList
         System.out.println("Registered successfully");
 
     }
 
-    public static void displayMovie(Scanner s, User currentUser) {
+    public void displayMovie(User currentUser) {
+        Scanner s = new Scanner(System.in);
         LocalDate currentDate = LocalDate.now();//displays the current date
         LocalDate selectedDate = currentDate;//the currentDate will be the selected date firstly for the booking tickets
 
@@ -59,7 +65,7 @@ public class UserAction {
                 System.out.print("Do you want to change the preferences of location or date(yes/no):");//then asks to change the preference of the location
                 String preference = s.nextLine();
                 if (preference.equals("yes")) {
-                    LocalDate date = UserAction.preferences(currentUser,currentDate);//calls the preferences methods
+                    LocalDate date = preferences(currentUser,currentDate);//calls the preferences methods
                     if (date != null) {
                         selectedDate = date;//returned is assigned to the selected date
                     }
@@ -80,12 +86,12 @@ public class UserAction {
                             movieObjects.add(movies);//movie objects are added to the arrayList
                         }
                     }
-                    int returnedValue=UserAction.availableTheatresAndBookTickets(movieObjects,currentUser);//after checking,method calls to book the ticket
+                    int returnedValue=availableTheatresAndBookTickets(movieObjects,currentUser);//after checking,method calls to book the ticket
                     if(returnedValue==1){
                         return;//if the method returns 1,it directly exits to the login method
                     }
                 } else if (preferences.equals("change")) {
-                    LocalDate date = UserAction.preferences(currentUser,currentDate);//if the option chooses to change the preferences...it calls the preferences method
+                    LocalDate date =preferences(currentUser,currentDate);//if the option chooses to change the preferences...it calls the preferences method
                     if (date != null) {
                         selectedDate = date;//returned is assigned to the selected date
                     }
@@ -99,7 +105,7 @@ public class UserAction {
         }
     }
 
-    public static int availableTheatresAndBookTickets(ArrayList<Movies> movies,User currentUser) {
+    public  int availableTheatresAndBookTickets(ArrayList<Movies> movies,User currentUser) {
         Scanner s = new Scanner(System.in);
 
         HashMap<String, HashSet<Show>> theatreAndShows = new HashMap<>();//local hashMap which sets theatre name as key and hashset of shows as value
@@ -227,14 +233,14 @@ public class UserAction {
             case 1:
                 return 0;//returns to continue booking
             case 2:
-                UserAction.viewTickets(currentUser);//calls the view Ticket method
+                viewTickets(currentUser);//calls the view Ticket method
                 continue;
             case 3:
                 return 1;//directly returns to the login method
         }
         }
     }
-    private static LocalDate preferences(User currentUser,LocalDate currentDate){
+    public LocalDate preferences(User currentUser,LocalDate currentDate){
         Scanner s=new Scanner(System.in);
         System.out.println("Do you want to \n1.Change the location \n2.Change the date\n3.Exit");
         int chooseOption = Integer.parseInt(s.nextLine());//gets the option to change
@@ -266,9 +272,9 @@ public class UserAction {
         }
         return null;
     }
-    public static void viewTickets(User currentUser){
+    public void viewTickets(User currentUser){
         ArrayList<Tickets> tickets=currentUser.getTickets();//ticket objects are stored in the variable ticket
-        System.out.println("Booked details of the user "+currentUser.getUserId());
+        System.out.println("Booked details of the user "+currentUser.getName());
         for(Tickets ticketObj:tickets){//loops all the ticket object and displays the details of the booked ticket
             System.out.println("Theatre Name:"+ticketObj.getTheatreName());
             System.out.println("Tickets Name:"+ticketObj.getBookedTickets());

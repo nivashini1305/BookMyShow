@@ -1,29 +1,33 @@
 package BookMyShow;
 
+import BookMyShow.Interfaces.AdminActionInterface;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-    public class AdminActions {
+    public  class AdminActions implements AdminActionInterface {
         //login method for admin
-        public static Admin adminLogin() {
+        public  Account login() {
             Scanner s=new Scanner(System.in);
             System.out.print("Enter the admin name:");
             String adminName = s.nextLine();//Enters the admin name
             System.out.print("Enter the admin pin:");
             String adminPin = s.nextLine();//Enters the admin pin
-            for (Admin admin : BookMyShow.getAdmins()) {
-                if (admin.getAdminId().equals(adminName) && admin.getAdminPin().equals(adminPin)) {//checks the admin id and admin pin
-                    return admin;
-                } else if (admin.getAdminPin().equals(adminName) && !admin.getAdminPin().equals(adminPin)) {//checks the admin id is equal and admin pin is wrong
-                    return new Admin(null, null);//returns the null to object
+            for (Account admin : BookMyShow.getAccounts()) {
+                if(admin instanceof Admin){
+                    if (admin.getName().equals(adminName) && admin.getPin().equals(adminPin)) {//checks the admin id and admin pin
+                        return admin;
+                    } else if (admin.getName().equals(adminName) && !admin.getPin().equals(adminPin)) {//checks the admin id is equal and admin pin is wrong
+                        return new Admin(null, null);//returns the null to object
+                    }
                 }
             }
             return null;
         }
 
-        public static void addLocation() {
+        public  void addLocation() {
             Scanner s=new Scanner(System.in);
             System.out.println("Add the location:");
             String locationName = s.nextLine();
@@ -35,7 +39,7 @@ import java.util.Scanner;
             }
             BookMyShow.getLocation().add(locationName);//if not adds the location
         }
-        public static void addTheatre() {
+        public  void addTheatre(AdminActions adminActions) {
             Scanner s=new Scanner(System.in);
             System.out.println("The available locations are:");
             for(String location:BookMyShow.getLocation()){//loops all the location to print
@@ -64,13 +68,14 @@ import java.util.Scanner;
             int noOfScreens=Integer.parseInt(s.nextLine());//gets the screen name
             HashMap<String,Screen> screenHashMap = new HashMap<>();//local hashmap for screen
             for (int i=0;i<noOfScreens;i++){//loops for no of screen which is to be added
-                AdminActions.addScreens(s,screenHashMap);//each time calls the method to add screen
+                adminActions.addScreens(screenHashMap);//each time calls the method to add screen
             }
             Theatre theatre=new Theatre(theatreName,location,screenHashMap);//adds these all to theatre object
             BookMyShow.getTheatres().put(theatreName,theatre);//adds to the hashmap
 
         }
-        public static void addScreens(Scanner s,HashMap<String,Screen> hashScreen) {
+        public  void addScreens(HashMap<String,Screen> hashScreen) {
+            Scanner s=new Scanner(System.in);
             while (true) {
                 System.out.print("Enter the Screen name:");
                 String screenName = s.nextLine();// gets input for screen name
@@ -95,7 +100,8 @@ import java.util.Scanner;
                 return;
             }
         }
-        public static void addMovies(Scanner s) {
+        public  void addMovies() {
+            Scanner s= new Scanner(System.in);
             System.out.println("Available Locations...");
             for (String availableLocation : BookMyShow.getLocation()) {//loops over location to display
                 System.out.println("->" + availableLocation);//prints all the location
@@ -193,7 +199,7 @@ import java.util.Scanner;
             }
 
         }
-        public static void viewTheatre(){
+        public  void viewTheatre(){
             var keysToVIewTheatre=BookMyShow.getTheatres().keySet();//all the keys of theatre hashMap is are taken
             for(var keys:keysToVIewTheatre){//loops each key
                 System.out.println("The available theatres are:"+keys);//prints all the available theatres
@@ -209,7 +215,7 @@ import java.util.Scanner;
                 }
             }
         }
-        public static void viewMovie(){
+        public  void viewMovie(){
             var keysInMovies=BookMyShow.getMovies().keySet();//gets all the keys of the movies hashmap
             System.out.println("Available movies..");
             boolean check =false;
